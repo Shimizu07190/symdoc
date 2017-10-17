@@ -19,6 +19,26 @@ $$Cartesian\left(\left(\begin{matrix}w x & w y & w z & w\end{matrix}\right)\righ
 
 # モデル変換
 
+
+## 拡大縮小変換: $\operatorname{Scale}{\left (s_{x},s_{y},s_{z} \right )}$
+
+以下の行列 $\operatorname{Scale}{\left (s_{x},s_{y},s_{z} \right )}$ に同次座標を乗ずると，その座標の$X$-, $Y$-, $Z$-成分をそれぞれ$(s_{x}, s_{y}, s_{z})$倍した同次座標を与えます．
+
+$$\operatorname{Scale}{\left (s_{x},s_{y},s_{z} \right )} = \left(\begin{matrix}s_{x} & 0 & 0 & 0\\0 & s_{y} & 0 & 0\\0 & 0 & s_{z} & 0\\0 & 0 & 0 & 1\end{matrix}\right)$$
+
+
+-----
+
+では、実際に確認してみましょう。
+
+\begin{align}
+\operatorname{Scale}{\left (s_{x},s_{y},s_{z} \right )} Homogeneous\left(\left(\begin{matrix}x\\y\\z\end{matrix}\right)\right)
+    &= \left(\begin{matrix}s_{x} & 0 & 0 & 0\\0 & s_{y} & 0 & 0\\0 & 0 & s_{z} & 0\\0 & 0 & 0 & 1\end{matrix}\right) \left(\begin{matrix}w x\\w y\\w z\\w\end{matrix}\right)  \\
+    &= \left(\begin{matrix}s_{x} w x\\s_{y} w y\\s_{z} w z\\w\end{matrix}\right) = Homogeneous\left(\left(\begin{matrix}s_{x} x\\s_{y} y\\s_{z} z\end{matrix}\right)\right)
+\end{align}
+
+確かにそのとおりになっていますね。
+
 ## 回転変換: $\operatorname{Rotate_{X}}{\left (\theta \right )}, \operatorname{Rotate_{Y}}{\left (\theta \right )}, \operatorname{Rotate_{Z}}{\left (\theta \right )}$
 
 

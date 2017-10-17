@@ -19,6 +19,17 @@
 <p>逆に，同次座標をデカルト座標に変換することもできます。</p>
 <p><span class="math display">\[Cartesian\left(\left(\begin{matrix}w x &amp; w y &amp; w z &amp; w\end{matrix}\right)\right) = \left(\begin{matrix}x &amp; y &amp; z\end{matrix}\right)\]</span></p>
 <h1 id="モデル変換">モデル変換</h1>
+<h2 id="拡大縮小変換-operatornamescaleleft-s_xs_ys_z-right">拡大縮小変換: <span class="math inline">\(\operatorname{Scale}{\left (s_{x},s_{y},s_{z} \right )}\)</span></h2>
+<p>以下の行列 <span class="math inline">\(\operatorname{Scale}{\left (s_{x},s_{y},s_{z} \right )}\)</span> に同次座標を乗ずると，その座標の<span class="math inline">\(X\)</span>-, <span class="math inline">\(Y\)</span>-, <span class="math inline">\(Z\)</span>-成分をそれぞれ<span class="math inline">\((s_{x}, s_{y}, s_{z})\)</span>倍した同次座標を与えます．</p>
+<p><span class="math display">\[\operatorname{Scale}{\left (s_{x},s_{y},s_{z} \right )} = \left(\begin{matrix}s_{x} &amp; 0 &amp; 0 &amp; 0\\0 &amp; s_{y} &amp; 0 &amp; 0\\0 &amp; 0 &amp; s_{z} &amp; 0\\0 &amp; 0 &amp; 0 &amp; 1\end{matrix}\right)\]</span></p>
+<hr />
+<p>では、実際に確認してみましょう。</p>
+<span class="math display">\[\begin{align}
+\operatorname{Scale}{\left (s_{x},s_{y},s_{z} \right )} Homogeneous\left(\left(\begin{matrix}x\\y\\z\end{matrix}\right)\right)
+    &amp;= \left(\begin{matrix}s_{x} &amp; 0 &amp; 0 &amp; 0\\0 &amp; s_{y} &amp; 0 &amp; 0\\0 &amp; 0 &amp; s_{z} &amp; 0\\0 &amp; 0 &amp; 0 &amp; 1\end{matrix}\right) \left(\begin{matrix}w x\\w y\\w z\\w\end{matrix}\right)  \\
+    &amp;= \left(\begin{matrix}s_{x} w x\\s_{y} w y\\s_{z} w z\\w\end{matrix}\right) = Homogeneous\left(\left(\begin{matrix}s_{x} x\\s_{y} y\\s_{z} z\end{matrix}\right)\right)
+\end{align}\]</span>
+<p>確かにそのとおりになっていますね。</p>
 <h2 id="回転変換-operatornamerotate_xleft-theta-right-operatornamerotate_yleft-theta-right-operatornamerotate_zleft-theta-right">回転変換: <span class="math inline">\(\operatorname{Rotate_{X}}{\left (\theta \right )}, \operatorname{Rotate_{Y}}{\left (\theta \right )}, \operatorname{Rotate_{Z}}{\left (\theta \right )}\)</span></h2>
 <ul>
 <li><p>回転変換行列 (<span class="math inline">\(\operatorname{Rotate_{X}}{\left (\theta \right )}\)</span>) に同次座標を乗ずると，その座標を<span class="math inline">\(X\)</span>軸のまわりに<span class="math inline">\(\theta\)</span>だけ回転した点の同次座標を与えます．</p>
