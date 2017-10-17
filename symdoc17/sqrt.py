@@ -73,7 +73,7 @@ def __first__():
 	f1_simple = sp.simplify(f1_sub)
 	markdown(
 r'''
-# Newton Rapthon法を用いた平方根の計算
+#Newton Rapthon法を用いた平方根の計算
 
 平方根を求めるプログラムを書いてみましょう。  
 一般に平方根を求める計算にはNewton Rapthon法が用いられます。  
@@ -96,4 +96,17 @@ $${x_n1} = {f1_sub} = {f1_simple} = \frac{{a / x_n+ x_n}}{{2}}$$
 	md_prog(fx2,1)
 	md_prog(fx3,2)
 	md_prog(fx5,2)
+
+	markdown(
+r'''
+# Newton Rapthon法の応用
+
+他の関数にも応用してみます。次は２の三乗根、四乗根を求めてみましょう。
+''', **locals())
+	fx2_3 = x**3 - 2
+	fx2_4 = x**4 - 2
+
+	md_prog(fx2_3,1)
+	md_prog(fx2_4,1)
+
 	return
