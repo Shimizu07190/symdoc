@@ -2,9 +2,12 @@ from functools import partial
 import argparse
 import sympy as sp
 import numpy as np
+import matplotlib.path as mpath
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
 
-from symdoc import Markdown, doit, symfunc, gsym
-from sympy.utilities.lambdify import lambdastr
+from symdoc import Markdown, doit
+#from sympy.utilities.lambdify import lambdastr
 cmdline_parser = argparse.ArgumentParser()
 Markdown.add_parser_option(cmdline_parser)
 
@@ -56,7 +59,6 @@ def slice_LK(Matrix, n):
 		r_Matrix[i] = Matrix_d
 	return r_Matrix
 
-
 def slice_P(P, i):
 	Pd1 = P[:i]
 	Pd2 = P[i+1:]
@@ -98,7 +100,18 @@ def warshallFloyd(cons_matrix):
 
     return distance_matrix
 
-def kk_algo(vlis, conslis, L0=10, K0=10, eps=0.1):
+def draw_graph(cons_matrix,P,n):
+	Path = mpath.Path
+	fig, ax = plt.subplots()
+	for i in range(n):
+		ax.plot(P[i,0],P[i,1], "ro")
+		for j in range(i,n):
+			if(cons_matrix[i][j] == 1):
+				ax.plot([P[i,0],P[j,0]],[P[i,1],P[j,1]],'k-')
+	ax.set_title('The red point should be on the path')
+	plt.show()
+
+def kk_algo(vlis, conslis, L0=10, K0=10, eps=0.0000001):
 	n = len(vlis)
 	cons_matrix = makeMaterix(vlis,conslis)
 	D = warshallFloyd(cons_matrix)
@@ -120,11 +133,23 @@ def kk_algo(vlis, conslis, L0=10, K0=10, eps=0.1):
 		delta_max = np.sqrt(grad_0(slice_P(P,Maxi), L[Maxi], K[Maxi], P[Maxi], n)**2 + grad_1(slice_P(P, Maxi), L[Maxi], K[Maxi], P[Maxi], n)**2)
 		delata_p = cal_loop(slice_P(P,Maxi), L[Maxi], K[Maxi], P[Maxi], n)
 		P[Maxi] = P[Maxi] + delata_p
+
+	draw_graph(cons_matrix,P,n)
 	return P
+
 @doit
-def test_kk():
-	lis = ([0,1,2,3])
-	conslis = ([0,1,2],[2,3])
+def test_kk1():
+	lis = [0,1,2,3]
+	conslis = [[0,1,2],[2,3]]
+
+	P = kk_algo(lis,conslis)
+
+	print(P)
+
+@doit
+def test_kk2():
+	lis = [0,1,2,3,4,5]
+	conslis = [[0,1],[0,2],[0,3],[0,4],[1,2],[1,4],[1,5],[2,3],[2,5],[3,4],[3,5],[4,5]]
 
 	P = kk_algo(lis,conslis)
 
