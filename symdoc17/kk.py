@@ -162,14 +162,18 @@ def __document__():
 	length_j = sp.sqrt(sp.Sum((Pi[j,d]-p[d])**2, d_range)).doit()
 	potential_j = Ki[j] * (length_j - Li[j]) ** 2 /2
 	function_E = sp.Sum(potential_j,j_range)
-	E = sp.Function('E')
-	dEp0 = sp.diff(E(p[0],p[1]), p[0])
-	dEp1 = sp.diff(E(p[0],p[1]), p[1])
-	dEp00 = sp.diff(dEp0, p[0])
-	dEp01 = sp.diff(dEp0, p[1])
-	dEp10 = sp.diff(dEp1, p[0])
-	dEp11 = sp.diff(dEp1, p[1])
-	delta_i = sp.sqrt(dEp0**2 + dEp1**2)
+	
+	pE = "{\partial E}"
+	pp0 = "{\partial p_0}"
+	pp1 = "{\partial p_1}"
+	p2E = "{\partial^2 E}"
+	pp00 = "{\partial^2 p_0}"
+	pp01 = "{\partial p_0 \partial p_1}"
+	pp10 = "{\partial p_1 \partial p_0}"
+	pp11 = "{\partial^2 p_1}"
+	sqrt1 = "\sqrt{"
+	sqrt2 = "}"
+
 	markdown(
 r'''
 # KK法による無向グラフの描画
@@ -191,13 +195,13 @@ $$K_j=K_0 / d_{{i,j}}^2$$と定める。$K_0$と$L_0$は定数である。
 次に、このエネルギーを最小化していき、安定な状態を求める。
 そのために、$p=P_i$と定め、$p$だけを変数とみて、考える。
 この$p$は各$v_i$の中で
-$$\Delta_i = {delta_i}$$
+$$\Delta_i = {sqrt1}\left({{\frac{pE}{pp0}}}\right)^2+\left({{\frac{pE}{pp0}}}\right)^2{sqrt2}$$
 が最大の$i$とする。そして、$p$の新しい座標を
 $$p_0 = p_0 + \delta p_0$$
 $$p_1 = p_1 + \delta p_1$$
 とする。この$\delta p_0$、$\delta p_1$は次の線形方程式の解である
-$${dEp00} \delta p_0 + {dEp01} \delta p_1 = -{dEp0}$$
-$${dEp10} \delta p_0 + {dEp11} \delta p_1 = -{dEp1}$$
+$$\frac{p2E}{pp00} \delta p_0 + \frac{p2E}{pp01} \delta p_1 = -\frac{pE}{pp0}$$
+$$\frac{p2E}{pp10} \delta p_0 + \frac{p2E}{pp11} \delta p_1 = -\frac{pE}{pp1}$$
 これを繰り返し、$\Delta_i$の最大値が十分小さくなるまで繰り返す。
 以下に、このアルゴリズムを適用する前の図と、適用後の図を示す。
 
